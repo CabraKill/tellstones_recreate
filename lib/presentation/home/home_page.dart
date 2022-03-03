@@ -52,24 +52,27 @@ class _HomePageState extends State<HomePage> {
                     DragTarget<Stones>(
                       builder: (context, candidateData, rejectedData) =>
                           const PlaceStone(),
-                      onAccept: (data) => Provider.of<StoneLineViewModel>(
-                              context,
-                              listen: false)
-                          .addStoneToLeft(data),
+                      onAccept: (stoneType) {
+                        Provider.of<StoneLineViewModel>(context, listen: false)
+                            .addStoneToLeft(stoneType);
+                        Provider.of<StonePoolViewModel>(context, listen: false)
+                            .removeStone(stoneType);
+                      },
                     ),
                   ...controller.stoneLine
                       .map((stone) => Stone(
-                            stone: stone,
+                            stone: stone.type,
                           ))
                       .toList(),
                   if (isDragging && controller.stoneLine.isNotEmpty)
                     DragTarget<Stones>(
                       builder: (context, candidateData, rejectedData) =>
                           const PlaceStone(),
-                      onAccept: (data) => Provider.of<StoneLineViewModel>(
-                              context,
-                              listen: false)
-                          .addStoneToRight(data),
+                      onAccept: (stoneType) {
+                        controller.addStoneToRight(stoneType);
+                        Provider.of<StonePoolViewModel>(context, listen: false)
+                            .removeStone(stoneType);
+                      },
                     )
                 ],
               ),

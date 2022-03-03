@@ -16,7 +16,7 @@ class StonePoolViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeStones(Stones stones) {
+  void removeStone(Stones stones) {
     _stonePool.remove(stones);
     notifyListeners();
   }
