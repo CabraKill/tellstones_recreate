@@ -8,8 +8,6 @@ class Stone extends StatelessWidget {
     required this.stone,
   }) : super(key: key);
 
-  const Stone.none({Key? key}) : this(stone: Stones.none, key: key);
-
   static const _stoneHeigth = 100.0;
 
   @override
@@ -17,12 +15,7 @@ class Stone extends StatelessWidget {
     return SizedBox(
       width: _stoneHeigth,
       height: _stoneHeigth,
-      child: stone == Stones.none
-          ? const SizedBox(
-              height: _stoneHeigth,
-              width: _stoneHeigth,
-            )
-          : Image.asset(stone.getAssetFileName),
+      child: Image.asset(stone.getAssetFileName),
     );
   }
 }

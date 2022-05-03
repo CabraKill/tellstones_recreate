@@ -25,9 +25,4 @@ class StoneLineViewModel extends ChangeNotifier {
     _stoneLine.insert(0, stoneState);
     notifyListeners();
   }
-
-  void removeStone(Stones stone) {
-    _stoneLine.removeWhere((stoneState) => stoneState.type == stone);
-    notifyListeners();
-  }
 }

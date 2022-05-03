@@ -7,14 +7,9 @@ class StonePoolViewModel extends ChangeNotifier {
   final List<Stones> _stonePool;
 
   StonePoolViewModel({List<Stones>? stonePool})
-      : _stonePool = stonePool ?? allStones;
+      : _stonePool = stonePool ?? List.from(Stones.values);
 
   UnmodifiableListView<Stones> get stonePool => UnmodifiableListView(_stonePool);
-
-  void addStone(Stones stones) {
-    _stonePool.add(stones);
-    notifyListeners();
-  }
 
   void removeStone(Stones stones) {
     _stonePool.remove(stones);

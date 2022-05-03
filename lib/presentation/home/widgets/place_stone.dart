@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tellstones_recreate/presentation/constants/stone_constants.dart';
 
 class PlaceStone extends StatelessWidget {
   const PlaceStone({Key? key}) : super(key: key);
@@ -6,8 +7,8 @@ class PlaceStone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: 100,
+      height: StoneConstants.size,
+      width: StoneConstants.size,
       decoration: const BoxDecoration(
         color: Colors.white,
         shape: BoxShape.circle,
