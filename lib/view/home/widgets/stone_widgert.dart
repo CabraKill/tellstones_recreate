@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tellstones_recreate/data/models/stones_enum.dart';
+import 'package:tellstones_recreate/models/stones_enum.dart';
 
 class Stone extends StatelessWidget {
-  final Stones stone;
+  final StoneType stone;
   const Stone({
     Key? key,
     required this.stone,

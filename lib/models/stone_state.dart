@@ -1,7 +1,7 @@
-import 'package:tellstones_recreate/data/models/stones_enum.dart';
+import 'package:tellstones_recreate/models/stones_enum.dart';
 
 class StoneState {
-  final Stones type;
+  final StoneType type;
   final bool turned;
   final int index;
 

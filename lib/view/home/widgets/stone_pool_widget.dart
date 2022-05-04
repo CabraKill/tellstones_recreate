@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tellstones_recreate/data/models/stones_enum.dart';
-import 'package:tellstones_recreate/infra/types/callback_type.dart';
-import 'package:tellstones_recreate/presentation/home/widgets/stone_widgert.dart';
+import 'package:tellstones_recreate/models/callback_type.dart';
+import 'package:tellstones_recreate/models/stones_enum.dart';
+import 'package:tellstones_recreate/view/home/widgets/stone_widgert.dart';
 
 class StonePool extends StatelessWidget {
-  final List<Stones> stones;
+  final List<StoneType> stones;
   final CallBack? onDragStarted;
   final CallBack? onDragEnd;
   const StonePool({
@@ -18,7 +18,7 @@ class StonePool extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: stones
-          .map((stone) => Draggable<Stones>(
+          .map((stone) => Draggable<StoneType>(
                 feedback: Stone(
                   stone: stone,
                 ),

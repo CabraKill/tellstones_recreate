@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tellstones_recreate/presentation/constants/stone_constants.dart';
+import 'package:tellstones_recreate/view/constants/stone_constants.dart';
 
 class PlaceStone extends StatelessWidget {
   const PlaceStone({Key? key}) : super(key: key);

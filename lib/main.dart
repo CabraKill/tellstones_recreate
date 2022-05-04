@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tellstones_recreate/data/view_models/configuration_view_model.dart';
-import 'package:tellstones_recreate/data/view_models/stone_line_view_model.dart';
-import 'package:tellstones_recreate/data/view_models/stone_pool_view_model.dart';
-import 'package:tellstones_recreate/data/view_models/table_points_view_model.dart';
-import 'package:tellstones_recreate/presentation/home/home_page.dart';
+import 'package:tellstones_recreate/view/home/home_page.dart';
+import 'package:tellstones_recreate/view_models/configuration_view_model.dart';
+import 'package:tellstones_recreate/view_models/stone_line_view_model.dart';
+import 'package:tellstones_recreate/view_models/stone_pool_view_model.dart';
+import 'package:tellstones_recreate/view_models/table_points_view_model.dart';
 
 void main() {
   runApp(MultiProvider(
