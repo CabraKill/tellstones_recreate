@@ -21,4 +21,26 @@ class StoneLineViewModel extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  bool canPutStone(int index) {
+    if (_stoneLine[3] == null) {
+      if (index == 3) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (index < 3) {
+      if (_stoneLine[index + 1] != null) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (_stoneLine[index - 1] != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -30,9 +30,15 @@ class HomePage extends StatelessWidget {
                 builder: (context, stoneLineViewModel, child) {
               return TheLine(
                 child: StoneTargetList(
-                  showTargets: configurationViewModel.isDragging,
+                  showTarget: (index) =>
+                      configurationViewModel.isDragging &&
+                      stoneLineViewModel.canPutStone(index),
                   stones: stoneLineViewModel.stoneLine,
-                  onAccept: stoneLineViewModel.onAccept,
+                  onAccept: (type, index) {
+                    stoneLineViewModel.onAccept(type, index);
+                    Provider.of<StonePoolViewModel>(context, listen: false)
+                        .removeStone(type);
+                  },
                 ),
               );
             }),
