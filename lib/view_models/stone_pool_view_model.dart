@@ -1,17 +1,21 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:tellstones_recreate/domain/stone_pool_view_model.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 
-class StonePoolViewModel extends ChangeNotifier {
+class StonePoolViewModelImpl extends ChangeNotifier
+    implements StonePoolViewModel {
   final List<StoneType> _stonePool;
 
-  StonePoolViewModel({List<StoneType>? stonePool})
+  StonePoolViewModelImpl({List<StoneType>? stonePool})
       : _stonePool = stonePool ?? List.from(StoneType.values);
 
-  UnmodifiableListView<StoneType> get stonePool =>
+  @override
+  UnmodifiableListView<StoneType> getStonePool() =>
       UnmodifiableListView(_stonePool);
 
+  @override
   void removeStone(StoneType stones) {
     _stonePool.remove(stones);
     notifyListeners();

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tellstones_recreate/domain/is_dragging_view_model.dart';
+import 'package:tellstones_recreate/domain/config_points_view_model.dart';
+import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
+import 'package:tellstones_recreate/domain/stone_pool_view_model.dart';
+import 'package:tellstones_recreate/domain/table_points_view_model.dart';
 import 'package:tellstones_recreate/view/home/home_page.dart';
-import 'package:tellstones_recreate/view_models/configuration_view_model.dart';
+import 'package:tellstones_recreate/view_models/is_dragging_view_model_impl.dart';
+import 'package:tellstones_recreate/view_models/points_view_model_impl.dart';
 import 'package:tellstones_recreate/view_models/stone_line_view_model.dart';
 import 'package:tellstones_recreate/view_models/stone_pool_view_model.dart';
 import 'package:tellstones_recreate/view_models/table_points_view_model.dart';
@@ -9,13 +15,17 @@ import 'package:tellstones_recreate/view_models/table_points_view_model.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      // Provider(
-      //   create: (context) => getHomeController(),
-      // ),
-      ChangeNotifierProvider(create: (context) => StonePoolViewModel()),
-      ChangeNotifierProvider(create: (context) => StoneLineViewModel()),
-      ChangeNotifierProvider(create: (context) => TablePointsViewModel()),
-      ChangeNotifierProvider(create: (context) => ConfigurationViewModel()),
+      ChangeNotifierProvider<StonePoolViewModel>(
+          create: (context) => StonePoolViewModelImpl()),
+      ChangeNotifierProvider<StoneLineViewModel>(
+          create: (context) => StoneLineViewModelImpl()),
+      ChangeNotifierProvider<TablePointsViewModel>(
+          create: (context) => TablePointsViewModelImpl()),
+      ChangeNotifierProvider<IsDraggingViewModel>(
+          create: (context) => IsDraggingViewModelImpl()),
+      Provider<ConfigPointsViewModel>(
+        create: (context) => ConfigPointsViewModelImpl(),
+      ),
     ],
     child: MaterialApp(
       initialRoute: '/',

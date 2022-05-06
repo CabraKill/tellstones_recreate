@@ -1,18 +1,20 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
 import 'package:tellstones_recreate/models/stone_state.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 
-class StoneLineViewModel extends ChangeNotifier {
+class StoneLineViewModelImpl extends ChangeNotifier implements StoneLineViewModel {
   final List<StoneState?> _stoneLine;
 
-  StoneLineViewModel({List<StoneState>? stoneLine})
+  StoneLineViewModelImpl({List<StoneState>? stoneLine})
       : _stoneLine = stoneLine ?? List.generate(7, (index) => null);
 
-  UnmodifiableListView<StoneState?> get stoneLine =>
+  UnmodifiableListView<StoneState?> getStoneLine() =>
       UnmodifiableListView(_stoneLine);
 
+  @override
   void onAccept(StoneType type, int index) {
     _stoneLine[index] = StoneState(
       type: type,
@@ -22,6 +24,7 @@ class StoneLineViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
   bool canPutStone(int index) {
     if (_stoneLine[3] == null) {
       if (index == 3) {
