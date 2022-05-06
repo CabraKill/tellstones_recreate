@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tellstones_recreate/models/callback_type.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
+import 'package:tellstones_recreate/view/home/widgets/empty_stone.dart';
 import 'package:tellstones_recreate/view/home/widgets/stone_widgert.dart';
 
 class StonePool extends StatelessWidget {
@@ -16,20 +17,22 @@ class StonePool extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: stones
-          .map((stone) => Draggable<StoneType>(
-                feedback: Stone(
-                  stone: stone,
-                ),
-                child: Stone(stone: stone),
-                childWhenDragging: const SizedBox.shrink(),
-                data: stone,
-                onDragStarted: onDragStarted,
-                onDragEnd: (_) => onDragEnd?.call(),
-              ))
-          .toList(),
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    );
+    return stones.isEmpty
+        ? const EmptyStone()
+        : Row(
+            children: stones
+                .map((stone) => Draggable<StoneType>(
+                      feedback: Stone(
+                        stone: stone,
+                      ),
+                      child: Stone(stone: stone),
+                      childWhenDragging: const EmptyStone(),
+                      data: stone,
+                      onDragStarted: onDragStarted,
+                      onDragEnd: (_) => onDragEnd?.call(),
+                    ))
+                .toList(),
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          );
   }
 }

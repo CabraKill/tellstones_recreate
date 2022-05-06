@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tellstones_recreate/domain/current_users_action_view_model.dart';
 import 'package:tellstones_recreate/domain/is_dragging_view_model.dart';
 import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
 import 'package:tellstones_recreate/domain/stone_pool_view_model.dart';
+import 'package:tellstones_recreate/view/home/widgets/player_panel/player_panel_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/stone_pool_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/stone_target_list.dart';
 import 'package:tellstones_recreate/view/home/widgets/the_line_widget.dart';
@@ -17,8 +19,21 @@ class HomePage extends StatelessWidget {
       return Scaffold(
         body: Center(
             child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            RotatedBox(
+                quarterTurns: 2,
+                child: Consumer<CurrentUsersActionViewModel>(
+                    builder: (context, currentUsersActionViewModel, child) {
+                      //TODO: when the panel is invisible show the current action type instead of the player panel
+                  return PlayerPanel(
+                    visible:
+                        currentUsersActionViewModel.getCurrentUserIndex() == 1,
+                    currentAction:
+                        currentUsersActionViewModel.getCurrentActionUser2(),
+                    onTap: currentUsersActionViewModel.setCurrentActionUser2,
+                  );
+                })),
             Consumer<StonePoolViewModel>(
                 builder: ((context, stonePoolViewModel, child) => StonePool(
                     stones: stonePoolViewModel.getStonePool(),
@@ -40,6 +55,17 @@ class HomePage extends StatelessWidget {
                         .removeStone(type);
                   },
                 ),
+              );
+            }),
+            Consumer<CurrentUsersActionViewModel>(
+                builder: (context, currentUsersActionViewModel, child) {
+              return PlayerPanel(
+                visible: currentUsersActionViewModel.getCurrentUserIndex() == 0,
+                currentAction:
+                    currentUsersActionViewModel.getCurrentActionUser1(),
+                onTap: currentUsersActionViewModel.setCurrentActionUser1,
+                // onTap: (_) =>
+                //     currentUsersActionViewModel.setCurrentUserIndex(1)
               );
             }),
           ],
