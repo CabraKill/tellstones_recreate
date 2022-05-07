@@ -4,6 +4,7 @@ import 'package:tellstones_recreate/domain/current_users_action_view_model.dart'
 import 'package:tellstones_recreate/domain/is_dragging_view_model.dart';
 import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
 import 'package:tellstones_recreate/domain/stone_pool_view_model.dart';
+import 'package:tellstones_recreate/view/home/widgets/player_panel/action_challenge.dart';
 import 'package:tellstones_recreate/view/home/widgets/player_panel/player_panel_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/stone_pool_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/stone_target_list.dart';
@@ -25,13 +26,15 @@ class HomePage extends StatelessWidget {
                 quarterTurns: 2,
                 child: Consumer<CurrentUsersActionViewModel>(
                     builder: (context, currentUsersActionViewModel, child) {
-                      //TODO: when the panel is invisible show the current action type instead of the player panel
                   return PlayerPanel(
                     visible:
                         currentUsersActionViewModel.getCurrentUserIndex() == 1,
                     currentAction:
                         currentUsersActionViewModel.getCurrentActionUser2(),
                     onTap: currentUsersActionViewModel.setCurrentActionUser2,
+                    onInvisible: (context) => ActionChallenge(
+                        type: currentUsersActionViewModel
+                            .getCurrentActionUser1()),
                   );
                 })),
             Consumer<StonePoolViewModel>(
@@ -64,8 +67,8 @@ class HomePage extends StatelessWidget {
                 currentAction:
                     currentUsersActionViewModel.getCurrentActionUser1(),
                 onTap: currentUsersActionViewModel.setCurrentActionUser1,
-                // onTap: (_) =>
-                //     currentUsersActionViewModel.setCurrentUserIndex(1)
+                onInvisible: (context) => ActionChallenge(
+                    type: currentUsersActionViewModel.getCurrentActionUser2()),
               );
             }),
           ],

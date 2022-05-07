@@ -18,7 +18,7 @@ class ActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedCrossFade(
-        duration: const Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 300),
         crossFadeState:
             activated ? CrossFadeState.showSecond : CrossFadeState.showFirst,
         firstChild: Icon(
