@@ -6,7 +6,7 @@ class CurrentUsersActionViewModelImpl extends ChangeNotifier
     implements CurrentUsersActionViewModel {
   ActionsType? _currentActionUser1;
   ActionsType? _currentActionUser2;
-  int _currentUserIndex = 0;
+  bool _isUser1Turn = true;
 
   @override
   ActionsType? getCurrentActionUser1() {
@@ -15,6 +15,9 @@ class CurrentUsersActionViewModelImpl extends ChangeNotifier
 
   @override
   void setCurrentActionUser1(ActionsType action) {
+    if (action == _currentActionUser1) {
+      return;
+    }
     _currentActionUser1 = action;
     notifyListeners();
   }
@@ -26,23 +29,46 @@ class CurrentUsersActionViewModelImpl extends ChangeNotifier
 
   @override
   void setCurrentActionUser2(ActionsType action) {
+    if (action == _currentActionUser2) {
+      return;
+    }
     _currentActionUser2 = action;
     notifyListeners();
   }
 
   @override
-  int getCurrentUserIndex() {
-    return _currentUserIndex;
+  bool getIsUser1Turn() {
+    return _isUser1Turn;
   }
 
   @override
-  void setCurrentUserIndex(int index) {
-    if (index == 0) {
-      _currentActionUser2 = null;
-    } else {
-      _currentActionUser1 = null;
+  bool getIsUser2Turn() {
+    return !_isUser1Turn;
+  }
+
+  @override
+  void setIsUser1Turn(bool isUser1Turn) {
+    if (isUser1Turn == _isUser1Turn) {
+      return;
     }
-    _currentUserIndex = index;
+    _isUser1Turn = isUser1Turn;
+    notifyListeners();
+  }
+
+  @override
+  void setIsUser2Turn(bool isUser2Turn) {
+    if (isUser2Turn == !_isUser1Turn) {
+      return;
+    }
+    _isUser1Turn = !isUser2Turn;
+    notifyListeners();
+  }
+
+  @override
+  void switchUser() {
+    _isUser1Turn = !_isUser1Turn;
+    _currentActionUser1 = null;
+    _currentActionUser2 = null;
     notifyListeners();
   }
 }

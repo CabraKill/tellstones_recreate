@@ -38,7 +38,7 @@ class _PlayerPanelState extends State<PlayerPanel> {
               width: MediaQuery.of(context).size.width * 0.3,
               height: MediaQuery.of(context).size.width * 0.3 * 0.3,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(60),
                 border: Border.all(
                   color: Colors.brown,
                   width: 7,
