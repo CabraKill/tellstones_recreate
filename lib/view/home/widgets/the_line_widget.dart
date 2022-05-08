@@ -14,6 +14,7 @@ class TheLine extends StatelessWidget {
       color: AppColors.theLineBackground,
       padding: const EdgeInsets.all(8),
       child: Container(
+      padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.white,

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
+import 'package:tellstones_recreate/view/constants/stone_constants.dart';
 
 class Stone extends StatelessWidget {
-  final StoneType stone;
+  final StoneType type;
+  final bool turned;
   const Stone({
     Key? key,
-    required this.stone,
+    required this.type,
+    this.turned = false,
   }) : super(key: key);
 
   static const _stoneHeigth = 100.0;
@@ -15,7 +18,9 @@ class Stone extends StatelessWidget {
     return SizedBox(
       width: _stoneHeigth,
       height: _stoneHeigth,
-      child: Image.asset(stone.getAssetFileName),
+      child: turned == false
+          ? Image.asset(type.getAssetFileName)
+          : Image.asset(StoneConstants.backAsset),
     );
   }
 }

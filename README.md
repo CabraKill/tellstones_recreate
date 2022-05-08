@@ -12,8 +12,8 @@ A flutter app with a webview and a native app. A tablet focused experience.
 
 # Game Instructions
 ## Actions:
-* Put (50%)
+* Put (100%)
 * Switch (0%)
-* Flip (0%)
+* Flip (100%)
 * challenge (0%)
 * I know all pieces (0%)

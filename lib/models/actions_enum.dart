@@ -5,7 +5,6 @@ enum ActionsType {
   swipe,
   flip,
   challenge,
-  //TODO: add challenge
   iKnowAllPieces,
 }
 

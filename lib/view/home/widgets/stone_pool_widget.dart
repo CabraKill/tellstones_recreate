@@ -26,10 +26,10 @@ class StonePool extends StatelessWidget {
                 .map((stone) => enableDrag
                     ? Draggable<StoneType>(
                         feedback: Stone(
-                          stone: stone,
+                          type: stone,
                         ),
                         child: Stone(
-                          stone: stone,
+                          type: stone,
                         ),
                         childWhenDragging: const EmptyStone(),
                         data: stone,
@@ -37,7 +37,7 @@ class StonePool extends StatelessWidget {
                         onDragEnd: (_) => onDragEnd?.call(),
                       )
                     : Stone(
-                        stone: stone,
+                        type: stone,
                       ))
                 .toList(),
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

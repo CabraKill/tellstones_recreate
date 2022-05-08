@@ -5,12 +5,14 @@ import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
 import 'package:tellstones_recreate/models/stone_state.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 
-class StoneLineViewModelImpl extends ChangeNotifier implements StoneLineViewModel {
+class StoneLineViewModelImpl extends ChangeNotifier
+    implements StoneLineViewModel {
   final List<StoneState?> _stoneLine;
 
   StoneLineViewModelImpl({List<StoneState>? stoneLine})
       : _stoneLine = stoneLine ?? List.generate(7, (index) => null);
 
+  @override
   UnmodifiableListView<StoneState?> getStoneLine() =>
       UnmodifiableListView(_stoneLine);
 
@@ -19,7 +21,6 @@ class StoneLineViewModelImpl extends ChangeNotifier implements StoneLineViewMode
     _stoneLine[index] = StoneState(
       type: type,
       turned: false,
-      index: index,
     );
     notifyListeners();
   }
@@ -45,5 +46,12 @@ class StoneLineViewModelImpl extends ChangeNotifier implements StoneLineViewMode
     } else {
       return false;
     }
+  }
+
+  @override
+  void flipStone(int index) {
+    _stoneLine[index] =
+        _stoneLine[index]?.copyWith(turned: !_stoneLine[index]!.turned);
+    notifyListeners();
   }
 }

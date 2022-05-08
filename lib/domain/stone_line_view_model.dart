@@ -8,4 +8,6 @@ abstract class StoneLineViewModel extends ChangeNotifier {
   void onAccept(StoneType type, int index) {}
 
   bool canPutStone(int index);
+
+  void flipStone(int index);
 }
