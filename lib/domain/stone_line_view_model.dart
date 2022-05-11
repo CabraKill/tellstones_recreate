@@ -5,9 +5,14 @@ import 'package:tellstones_recreate/models/stones_enum.dart';
 abstract class StoneLineViewModel extends ChangeNotifier {
   List<StoneState?> getStoneLine();
 
-  void onAccept(StoneType type, int index) {}
+  void onPut(StoneType type, int index) {}
 
   bool canPutStone(int index);
 
   void flipStone(int index);
+
+  void onSelect(int index);
+
+  List<int> getSelectedStonesIndexList();
+
 }

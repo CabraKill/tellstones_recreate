@@ -12,7 +12,7 @@ import 'package:tellstones_recreate/view_models/current_users_action_view_model_
 import 'package:tellstones_recreate/view_models/home_view_model_impl.dart';
 import 'package:tellstones_recreate/view_models/is_dragging_view_model_impl.dart';
 import 'package:tellstones_recreate/view_models/points_view_model_impl.dart';
-import 'package:tellstones_recreate/view_models/stone_line_view_model.dart';
+import 'package:tellstones_recreate/view_models/stone_line_view_model_impl.dart';
 import 'package:tellstones_recreate/view_models/stone_pool_view_model.dart';
 import 'package:tellstones_recreate/view_models/table_points_view_model.dart';
 
@@ -29,15 +29,17 @@ void main() {
           create: (context) => IsDraggingViewModelImpl()),
       ChangeNotifierProvider<CurrentUsersActionViewModel>(
           create: (context) => CurrentUsersActionViewModelImpl()),
-      ChangeNotifierProvider<HomeViewModel>(
-          create: (context) => HomeViewModelImpl(
-                currentUsersActionViewModel:
-                    Provider.of<CurrentUsersActionViewModel>(context, listen: false),
-                stoneLineViewModel: Provider.of<StoneLineViewModel>(context, listen: false),
-              )),
       Provider<ConfigPointsViewModel>(
         create: (context) => ConfigPointsViewModelImpl(),
       ),
+      Provider<HomeViewModel>(
+        create: (context) => HomeViewModelImpl(
+          currentUsersActionViewModel:
+              Provider.of<CurrentUsersActionViewModel>(context, listen: false),
+          stoneLineViewModel:
+              Provider.of<StoneLineViewModel>(context, listen: false),
+        ),
+      )
     ],
     child: MaterialApp(
       initialRoute: '/',

@@ -31,12 +31,11 @@ class HomePage extends StatelessWidget {
                       return PlayerPanel(
                         visible: currentUsersActionViewModel.getIsUser2Turn(),
                         currentAction:
-                            currentUsersActionViewModel.getCurrentActionUser2(),
-                        onTap:
-                            currentUsersActionViewModel.setCurrentActionUser2,
+                            currentUsersActionViewModel.getCurrentAction(),
+                        onTap: currentUsersActionViewModel.setCurrentAction,
                         onInvisible: (context) => ActionChallenge(
-                            type: currentUsersActionViewModel
-                                .getCurrentActionUser1()),
+                            type:
+                                currentUsersActionViewModel.getCurrentAction()),
                       );
                     })),
               ),
@@ -52,11 +51,8 @@ class HomePage extends StatelessWidget {
                             onDragEnd: () =>
                                 configurationViewModel.setIsDragging(false),
                             enableDrag: currentUsersActionViewModel
-                                        .getCurrentActionUser1() ==
-                                    ActionsType.put ||
-                                currentUsersActionViewModel
-                                        .getCurrentActionUser2() ==
-                                    ActionsType.put,
+                                    .getCurrentAction() ==
+                                ActionsType.put,
                           )));
                 }),
               ),
@@ -72,7 +68,7 @@ class HomePage extends StatelessWidget {
                             stoneLineViewModel.canPutStone(index),
                         stones: stoneLineViewModel.getStoneLine(),
                         onAccept: (type, index) {
-                          stoneLineViewModel.onAccept(type, index);
+                          stoneLineViewModel.onPut(type, index);
                           Provider.of<StonePoolViewModel>(
                             context,
                             listen: false,
@@ -82,8 +78,11 @@ class HomePage extends StatelessWidget {
                             listen: false,
                           ).switchUser();
                         },
-                        onTap: Provider.of<HomeViewModel>(context, listen: false)
+                        onTap:
+                            Provider.of<HomeViewModel>(context, listen: false)
                                 .onStoneTap,
+                        onLongTap: Provider.of<HomeViewModel>(context, listen: false)
+                                .onStoneLongTap,
                       ),
                     );
                   }),
@@ -96,11 +95,11 @@ class HomePage extends StatelessWidget {
                   return PlayerPanel(
                     visible: currentUsersActionViewModel.getIsUser1Turn(),
                     currentAction:
-                        currentUsersActionViewModel.getCurrentActionUser1(),
-                    onTap: currentUsersActionViewModel.setCurrentActionUser1,
+                        currentUsersActionViewModel.getCurrentAction(),
+                    onTap: currentUsersActionViewModel.setCurrentAction,
                     onInvisible: (context) => ActionChallenge(
-                        type: currentUsersActionViewModel
-                            .getCurrentActionUser2()),
+                      type: currentUsersActionViewModel.getCurrentAction(),
+                    ),
                   );
                 }),
               ),

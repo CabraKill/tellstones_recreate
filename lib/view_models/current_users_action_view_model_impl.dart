@@ -4,35 +4,20 @@ import 'package:tellstones_recreate/models/actions_enum.dart';
 
 class CurrentUsersActionViewModelImpl extends ChangeNotifier
     implements CurrentUsersActionViewModel {
-  ActionsType? _currentActionUser1;
-  ActionsType? _currentActionUser2;
+  ActionsType? _currentAction;
   bool _isUser1Turn = true;
 
   @override
-  ActionsType? getCurrentActionUser1() {
-    return _currentActionUser1;
+  ActionsType? getCurrentAction() {
+    return _currentAction;
   }
 
   @override
-  void setCurrentActionUser1(ActionsType action) {
-    if (action == _currentActionUser1) {
+  void setCurrentAction(ActionsType action) {
+    if (action == _currentAction) {
       return;
     }
-    _currentActionUser1 = action;
-    notifyListeners();
-  }
-
-  @override
-  ActionsType? getCurrentActionUser2() {
-    return _currentActionUser2;
-  }
-
-  @override
-  void setCurrentActionUser2(ActionsType action) {
-    if (action == _currentActionUser2) {
-      return;
-    }
-    _currentActionUser2 = action;
+    _currentAction = action;
     notifyListeners();
   }
 
@@ -67,8 +52,7 @@ class CurrentUsersActionViewModelImpl extends ChangeNotifier
   @override
   void switchUser() {
     _isUser1Turn = !_isUser1Turn;
-    _currentActionUser1 = null;
-    _currentActionUser2 = null;
+    _currentAction = null;
     notifyListeners();
   }
 }

@@ -17,7 +17,7 @@ class StoneLineViewModelImpl extends ChangeNotifier
       UnmodifiableListView(_stoneLine);
 
   @override
-  void onAccept(StoneType type, int index) {
+  void onPut(StoneType type, int index) {
     _stoneLine[index] = StoneState(
       type: type,
       turned: false,
@@ -50,8 +50,29 @@ class StoneLineViewModelImpl extends ChangeNotifier
 
   @override
   void flipStone(int index) {
-    _stoneLine[index] =
-        _stoneLine[index]?.copyWith(turned: !_stoneLine[index]!.turned);
+    _stoneLine[index] = _stoneLine[index]?.copyWith(
+      turned: !_stoneLine[index]!.turned,
+    );
     notifyListeners();
   }
+
+  @override
+  void onSelect(int index) {
+    _stoneLine[index] = _stoneLine[index]?.copyWith(
+      selected: !_stoneLine[index]!.selected,
+    );
+    notifyListeners();
+  }
+
+  @override
+  List<int> getSelectedStonesIndexList() {
+    List<int> selectedStonesIndexList = [];
+    for (var i = 0; i < _stoneLine.length; i++) {
+      if (_stoneLine[i]?.selected ?? false) {
+        selectedStonesIndexList.add(i);
+      }
+    }
+    return selectedStonesIndexList;
+  }
+
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tellstones_recreate/models/callback_type.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 import 'package:tellstones_recreate/view/home/widgets/empty_stone.dart';
-import 'package:tellstones_recreate/view/home/widgets/stone_widgert.dart';
+import 'package:tellstones_recreate/view/home/widgets/stone_widget.dart';
 
 class StonePool extends StatelessWidget {
   final List<StoneType> stones;

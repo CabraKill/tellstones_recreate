@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tellstones_recreate/view/home/widgets/stone_widgert.dart';
+import 'package:tellstones_recreate/view/home/widgets/stone_widget.dart';
 
 class AnimatedStone extends StatelessWidget {
   final Stone child;
