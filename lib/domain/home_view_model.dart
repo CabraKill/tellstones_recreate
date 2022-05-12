@@ -4,5 +4,6 @@ abstract class HomeViewModel {
   void onStoneTap(int index);
   void onStoneLongTap(int index);
   List<int> getSelectedStonesIndexList();
-  bool readyToSwith(ActionsType currentAction, int selectedStonesLength);
+  bool readyToSwith(ActionsType? currentAction, int selectedStonesLength);
+  void onSwitch();
 }

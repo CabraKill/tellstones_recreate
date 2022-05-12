@@ -3,7 +3,7 @@ import 'package:tellstones_recreate/domain/current_users_action_view_model.dart'
 import 'package:tellstones_recreate/models/actions_enum.dart';
 
 class CurrentUsersActionViewModelImpl extends ChangeNotifier
-    implements CurrentUsersActionViewModel {
+    implements CurrentUsersActionViewModel { 
   ActionsType? _currentAction;
   bool _isUser1Turn = true;
 

@@ -33,19 +33,25 @@ class HomeViewModelImpl implements HomeViewModel {
 
   void _selectStone(int index) {
     final stone = stoneLineViewModel.getStoneLine()[index];
-    if (!(stone?.selected ?? true) ||
-        stoneLineViewModel.getSelectedStonesIndexList().length == 1) {
+    if ((stone?.selected ?? false) ||
+        stoneLineViewModel.getSelectedStonesIndexList().length <= 1) {
       stoneLineViewModel.onSelect(index);
     }
   }
 
   @override
-  bool readyToSwith(ActionsType currentAction, int selectedStonesLength) {
+  bool readyToSwith(ActionsType? currentAction, int selectedStonesLength) {
     return currentAction == ActionsType.swipe && selectedStonesLength == 2;
   }
 
   @override
   List<int> getSelectedStonesIndexList() {
     return stoneLineViewModel.getSelectedStonesIndexList();
+  }
+
+  @override
+  void onSwitch() {
+    stoneLineViewModel.switchStones();
+    currentUsersActionViewModel.switchUser();
   }
 }

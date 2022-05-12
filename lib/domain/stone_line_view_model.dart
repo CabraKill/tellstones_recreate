@@ -15,4 +15,6 @@ abstract class StoneLineViewModel extends ChangeNotifier {
 
   List<int> getSelectedStonesIndexList();
 
+  void switchStones();
+
 }

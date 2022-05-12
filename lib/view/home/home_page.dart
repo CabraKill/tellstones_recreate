@@ -26,17 +26,31 @@ class HomePage extends StatelessWidget {
               Expanded(
                 child: RotatedBox(
                     quarterTurns: 2,
-                    child: Consumer<CurrentUsersActionViewModel>(
-                        builder: (context, currentUsersActionViewModel, child) {
-                      return PlayerPanel(
-                        visible: currentUsersActionViewModel.getIsUser2Turn(),
-                        currentAction:
-                            currentUsersActionViewModel.getCurrentAction(),
-                        onTap: currentUsersActionViewModel.setCurrentAction,
-                        onInvisible: (context) => ActionChallenge(
-                            type:
-                                currentUsersActionViewModel.getCurrentAction()),
-                      );
+                    child: Consumer<StoneLineViewModel>(
+                        builder: (context, stoneLineViewModel, child) {
+                      return Consumer<CurrentUsersActionViewModel>(builder:
+                          (context, currentUsersActionViewModel, child) {
+                        return PlayerPanel(
+                          visible: currentUsersActionViewModel.getIsUser2Turn(),
+                          currentAction:
+                              currentUsersActionViewModel.getCurrentAction(),
+                          onTap: currentUsersActionViewModel.setCurrentAction,
+                          onInvisible: (context) => ActionChallenge(
+                              type: currentUsersActionViewModel
+                                  .getCurrentAction()),
+                          isReadyToSwitch:
+                              Provider.of<HomeViewModel>(context, listen: false)
+                                  .readyToSwith(
+                                      currentUsersActionViewModel
+                                          .getCurrentAction(),
+                                      stoneLineViewModel
+                                          .getSelectedStonesIndexList()
+                                          .length),
+                          onConfirmSwitch:
+                              Provider.of<HomeViewModel>(context, listen: false)
+                                  .onSwitch,
+                        );
+                      });
                     })),
               ),
               Expanded(
@@ -81,7 +95,8 @@ class HomePage extends StatelessWidget {
                         onTap:
                             Provider.of<HomeViewModel>(context, listen: false)
                                 .onStoneTap,
-                        onLongTap: Provider.of<HomeViewModel>(context, listen: false)
+                        onLongTap:
+                            Provider.of<HomeViewModel>(context, listen: false)
                                 .onStoneLongTap,
                       ),
                     );
@@ -90,17 +105,31 @@ class HomePage extends StatelessWidget {
               ),
               const Expanded(child: SizedBox()),
               Expanded(
-                child: Consumer<CurrentUsersActionViewModel>(
-                    builder: (context, currentUsersActionViewModel, child) {
-                  return PlayerPanel(
-                    visible: currentUsersActionViewModel.getIsUser1Turn(),
-                    currentAction:
-                        currentUsersActionViewModel.getCurrentAction(),
-                    onTap: currentUsersActionViewModel.setCurrentAction,
-                    onInvisible: (context) => ActionChallenge(
-                      type: currentUsersActionViewModel.getCurrentAction(),
-                    ),
-                  );
+                child: Consumer<StoneLineViewModel>(
+                    builder: (context, stoneLineViewModel, child) {
+                  return Consumer<CurrentUsersActionViewModel>(
+                      builder: (context, currentUsersActionViewModel, child) {
+                    return PlayerPanel(
+                        visible: currentUsersActionViewModel.getIsUser1Turn(),
+                        currentAction:
+                            currentUsersActionViewModel.getCurrentAction(),
+                        onTap: currentUsersActionViewModel.setCurrentAction,
+                        onInvisible: (context) => ActionChallenge(
+                              type: currentUsersActionViewModel
+                                  .getCurrentAction(),
+                            ),
+                        isReadyToSwitch:
+                            Provider.of<HomeViewModel>(context, listen: false)
+                                .readyToSwith(
+                          currentUsersActionViewModel.getCurrentAction(),
+                          stoneLineViewModel
+                              .getSelectedStonesIndexList()
+                              .length,
+                        ),
+                        onConfirmSwitch:
+                            Provider.of<HomeViewModel>(context, listen: false)
+                                .onSwitch);
+                  });
                 }),
               ),
             ],

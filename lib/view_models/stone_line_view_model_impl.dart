@@ -75,4 +75,17 @@ class StoneLineViewModelImpl extends ChangeNotifier
     return selectedStonesIndexList;
   }
 
+  @override
+  void switchStones() {
+    final firstStoneIndex = getSelectedStonesIndexList()[0];
+    final secondStoneIndex = getSelectedStonesIndexList()[1];
+    final firstStone = _stoneLine[firstStoneIndex];
+    final secondStone = _stoneLine[secondStoneIndex];
+
+    _stoneLine[firstStoneIndex] =
+        secondStone?.copyWith(selected: false);
+    _stoneLine[secondStoneIndex] =
+        firstStone?.copyWith(selected: false);
+    notifyListeners();
+  }
 }

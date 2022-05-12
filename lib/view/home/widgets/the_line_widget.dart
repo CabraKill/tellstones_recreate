@@ -11,16 +11,16 @@ class TheLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.theLineBackground,
+      color: AppColors.darkBlue,
       padding: const EdgeInsets.all(8),
       child: Container(
       padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.white,
-            width: 1,
+            width: 2,
           ),
-          color: AppColors.theLineBackground,
+          color: AppColors.darkBlue,
         ),
         child: child,
       ),
