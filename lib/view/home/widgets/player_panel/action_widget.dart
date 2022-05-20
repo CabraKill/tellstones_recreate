@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
-import 'package:tellstones_recreate/models/callback_type.dart';
+import 'package:tellstones_recreate/infra/types/callback_type.dart';
 
 class ActionButton extends StatelessWidget {
   final ActionsType actionType;

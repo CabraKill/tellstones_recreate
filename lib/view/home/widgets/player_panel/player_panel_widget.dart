@@ -1,15 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:tellstones_recreate/infra/types/action_type_tap_type.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
-import 'package:tellstones_recreate/models/callback_type.dart';
+import 'package:tellstones_recreate/infra/types/callback_type.dart';
 import 'package:tellstones_recreate/utils/colors.dart';
 import 'package:tellstones_recreate/view/home/widgets/player_panel/action_widget.dart';
 
 class PlayerPanel extends StatefulWidget {
   final CallBack? onFlip;
   final ActionsType? currentAction;
-  final void Function(ActionsType)? onTap;
+  final ActionsTypeTap onTap;
   final bool visible;
   final Widget Function(BuildContext)? onInvisible;
   final bool? isReadyToSwitch;

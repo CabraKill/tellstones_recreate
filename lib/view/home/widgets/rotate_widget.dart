@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class Rotate extends StatelessWidget {
+class Flip extends StatelessWidget {
   final bool turned;
   final Widget child;
-  const Rotate({
+  const Flip({
     required this.turned,
     required this.child,
     Key? key,

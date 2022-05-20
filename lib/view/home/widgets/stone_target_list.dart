@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tellstones_recreate/infra/types/on_accept_stone_pool_type.dart';
+import 'package:tellstones_recreate/infra/types/on_stone_long_tap_type.dart';
+import 'package:tellstones_recreate/infra/types/on_stone_tap_type.dart';
+import 'package:tellstones_recreate/infra/types/should_show_index_target_type.dart';
 import 'package:tellstones_recreate/models/stone_state.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 import 'package:tellstones_recreate/view/home/widgets/empty_stone.dart';
@@ -9,10 +13,10 @@ import 'package:tellstones_recreate/view/home/widgets/stone_widget.dart';
 
 class StoneTargetList extends StatefulWidget {
   final List<StoneState?> stones;
-  final bool Function(int index) showTarget;
-  final void Function(StoneType stoneType, int index) onAccept;
-  final void Function(int index) onTap;
-  final void Function(int index)? onLongTap;
+  final ShouldShowIndexTargetFunction showTarget;
+  final OnAcceptPoolStoneCallBack onAccept;
+  final OnStoneTapCallBack onTap;
+  final OnStoneLongTapCallBack onLongTap;
   const StoneTargetList({
     required this.stones,
     required this.showTarget,
@@ -47,7 +51,8 @@ class _StoneTargetListState extends State<StoneTargetList> {
                 : InkWell(
                     onTap: () => widget.onTap(index),
                     onLongPress: () => widget.onLongTap?.call(index),
-                    child: Rotate(
+                    child: Flip(
+                      key: ValueKey(widget.stones[index]?.type.name),
                         turned: widget.stones[index]!.turned,
                         child: SelectedStone(
                           key: ValueKey(
