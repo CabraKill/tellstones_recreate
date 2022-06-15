@@ -6,6 +6,7 @@ import 'package:tellstones_recreate/domain/is_dragging_view_model.dart';
 import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
 import 'package:tellstones_recreate/domain/stone_pool_view_model.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
+import 'package:tellstones_recreate/view/home/widgets/guess_pool_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/player_panel/action_challenge.dart';
 import 'package:tellstones_recreate/view/home/widgets/player_panel/player_panel_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/stone_pool_widget.dart';
@@ -21,116 +22,130 @@ class HomePage extends StatelessWidget {
         builder: (context, configurationViewModel, child) {
       return Scaffold(
         body: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
-              Expanded(
-                child: RotatedBox(
-                    quarterTurns: 2,
-                    child: Consumer<StoneLineViewModel>(
-                        builder: (context, stoneLineViewModel, child) {
-                      return Consumer<CurrentUsersActionViewModel>(builder:
-                          (context, currentUsersActionViewModel, child) {
-                        return PlayerPanel(
-                          visible: currentUsersActionViewModel.getIsUser2Turn(),
-                          currentAction:
-                              currentUsersActionViewModel.getCurrentAction(),
-                          onTap: currentUsersActionViewModel.setCurrentAction,
-                          onInvisible: (context) => ActionChallenge(
-                              type: currentUsersActionViewModel
-                                  .getCurrentAction()),
-                          isReadyToSwitch:
-                              Provider.of<HomeViewModel>(context, listen: false)
+              Column(
+                children: [
+                  Expanded(
+                    child: RotatedBox(
+                        quarterTurns: 2,
+                        child: Consumer<StoneLineViewModel>(
+                            builder: (context, stoneLineViewModel, child) {
+                          return Consumer<CurrentUsersActionViewModel>(builder:
+                              (context, currentUsersActionViewModel, child) {
+                            return PlayerPanel(
+                              visible:
+                                  currentUsersActionViewModel.getIsUser2Turn(),
+                              currentAction: currentUsersActionViewModel
+                                  .getCurrentAction(),
+                              onTap:
+                                  currentUsersActionViewModel.setCurrentAction,
+                              onInvisible: (context) => ActionChallenge(
+                                  type: currentUsersActionViewModel
+                                      .getCurrentAction()),
+                              isReadyToSwitch: Provider.of<HomeViewModel>(
+                                      context,
+                                      listen: false)
                                   .readyToSwith(
                                       currentUsersActionViewModel
                                           .getCurrentAction(),
                                       stoneLineViewModel
                                           .getSelectedStonesIndexList()
                                           .length),
-                          onConfirmSwitch:
-                              Provider.of<HomeViewModel>(context, listen: false)
+                              onConfirmSwitch: Provider.of<HomeViewModel>(
+                                      context,
+                                      listen: false)
                                   .onSwitch,
-                        );
-                      });
-                    })),
-              ),
-              Expanded(
-                child: Consumer<CurrentUsersActionViewModel>(
-                    builder: (context, currentUsersActionViewModel, child) {
-                  return Consumer<StonePoolViewModel>(
-                      builder: ((context, stonePoolViewModel, child) =>
-                          StonePool(
-                            stones: stonePoolViewModel.getStonePool(),
-                            onDragStarted: () =>
-                                configurationViewModel.setIsDragging(true),
-                            onDragEnd: () =>
-                                configurationViewModel.setIsDragging(false),
-                            enableDrag: currentUsersActionViewModel
-                                    .getCurrentAction() ==
-                                ActionsType.put,
-                          )));
-                }),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Consumer<StoneLineViewModel>(
-                      builder: (context, stoneLineViewModel, child) {
-                    return TheLine(
-                      child: StoneTargetList(
-                        showTarget: (index) =>
-                            configurationViewModel.getIsDragging() &&
-                            stoneLineViewModel.canPutStone(index),
-                        stones: stoneLineViewModel.getStoneLine(),
-                        onAccept: (type, index) {
-                          stoneLineViewModel.onPut(type, index);
-                          Provider.of<StonePoolViewModel>(
-                            context,
-                            listen: false,
-                          ).removeStone(type);
-                          Provider.of<CurrentUsersActionViewModel>(
-                            context,
-                            listen: false,
-                          ).switchUser();
-                        },
-                        onTap:
-                            Provider.of<HomeViewModel>(context, listen: false)
-                                .onStoneTap,
-                        onLongTap:
-                            Provider.of<HomeViewModel>(context, listen: false)
-                                .onStoneLongTap,
-                      ),
-                    );
-                  }),
-                ),
-              ),
-              const Expanded(child: SizedBox()),
-              Expanded(
-                child: Consumer<StoneLineViewModel>(
-                    builder: (context, stoneLineViewModel, child) {
-                  return Consumer<CurrentUsersActionViewModel>(
-                      builder: (context, currentUsersActionViewModel, child) {
-                    return PlayerPanel(
-                        visible: currentUsersActionViewModel.getIsUser1Turn(),
-                        currentAction:
-                            currentUsersActionViewModel.getCurrentAction(),
-                        onTap: currentUsersActionViewModel.setCurrentAction,
-                        onInvisible: (context) => ActionChallenge(
-                              type: currentUsersActionViewModel
-                                  .getCurrentAction(),
-                            ),
-                        isReadyToSwitch:
-                            Provider.of<HomeViewModel>(context, listen: false)
+                            );
+                          });
+                        })),
+                  ),
+                  Expanded(
+                    child: Consumer<CurrentUsersActionViewModel>(
+                        builder: (context, currentUsersActionViewModel, child) {
+                      return Consumer<StonePoolViewModel>(
+                          builder: ((context, stonePoolViewModel, child) =>
+                              StonePool(
+                                stones: stonePoolViewModel.getStonePool(),
+                                onDragStarted: () =>
+                                    configurationViewModel.setIsDragging(true),
+                                onDragEnd: () =>
+                                    configurationViewModel.setIsDragging(false),
+                                enableDrag: currentUsersActionViewModel
+                                        .getCurrentAction() ==
+                                    ActionsType.put,
+                              )));
+                    }),
+                  ),
+                  Expanded(child: Container()),
+                  const Expanded(child: SizedBox()),
+                  Expanded(
+                    child: Consumer<StoneLineViewModel>(
+                        builder: (context, stoneLineViewModel, child) {
+                      return Consumer<CurrentUsersActionViewModel>(builder:
+                          (context, currentUsersActionViewModel, child) {
+                        return PlayerPanel(
+                            visible:
+                                currentUsersActionViewModel.getIsUser1Turn(),
+                            currentAction:
+                                currentUsersActionViewModel.getCurrentAction(),
+                            onTap: currentUsersActionViewModel.setCurrentAction,
+                            onInvisible: (context) => ActionChallenge(
+                                  type: currentUsersActionViewModel
+                                      .getCurrentAction(),
+                                ),
+                            isReadyToSwitch: Provider.of<HomeViewModel>(context,
+                                    listen: false)
                                 .readyToSwith(
-                          currentUsersActionViewModel.getCurrentAction(),
-                          stoneLineViewModel
-                              .getSelectedStonesIndexList()
-                              .length,
-                        ),
-                        onConfirmSwitch:
-                            Provider.of<HomeViewModel>(context, listen: false)
+                              currentUsersActionViewModel.getCurrentAction(),
+                              stoneLineViewModel
+                                  .getSelectedStonesIndexList()
+                                  .length,
+                            ),
+                            onConfirmSwitch: Provider.of<HomeViewModel>(context,
+                                    listen: false)
                                 .onSwitch);
-                  });
-                }),
+                      });
+                    }),
+                  ),
+                ],
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Consumer<StoneLineViewModel>(
+                        builder: (context, stoneLineViewModel, child) {
+                      return TheLine(
+                        child: StoneTargetList(
+                          showTarget: (index) =>
+                              configurationViewModel.getIsDragging() &&
+                              stoneLineViewModel.canPutStone(index),
+                          stones: stoneLineViewModel.getStoneLine(),
+                          onAccept: (type, index) {
+                            stoneLineViewModel.onPut(type, index);
+                            Provider.of<StonePoolViewModel>(
+                              context,
+                              listen: false,
+                            ).removeStone(type);
+                            Provider.of<CurrentUsersActionViewModel>(
+                              context,
+                              listen: false,
+                            ).switchUser();
+                          },
+                          onTap:
+                              Provider.of<HomeViewModel>(context, listen: false)
+                                  .onStoneTap,
+                          onLongTap:
+                              Provider.of<HomeViewModel>(context, listen: false)
+                                  .onStoneLongTap,
+                        ),
+                      );
+                    }),
+                    GuessPool(onTap: (type) {})
+                  ],
+                ),
               ),
             ],
           ),

@@ -54,7 +54,7 @@ class _StoneTargetListState extends State<StoneTargetList> {
                     child: Flip(
                       key: ValueKey(widget.stones[index]?.type.name),
                         turned: widget.stones[index]!.turned,
-                        child: SelectedStone(
+                        child: AnimatedSelect(
                           key: ValueKey(
                               "stoneTargetListKey_${index}_${widget.stones[index]!.turned}"),
                           isSelected: widget.stones[index]!.selected,

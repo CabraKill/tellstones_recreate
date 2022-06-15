@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-class SelectedStone extends StatelessWidget {
+class AnimatedSelect extends StatelessWidget {
   final Widget child;
   final bool isSelected;
-  const SelectedStone({
-    Key? key,
-    required this.child,
-    required this.isSelected,
-  }) : super(key: key);
+  final Color? selectedColor;
+  const AnimatedSelect(
+      {Key? key,
+      required this.child,
+      required this.isSelected,
+      this.selectedColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class SelectedStone extends StatelessWidget {
       firstChild: child,
       secondChild: ColorFiltered(
         colorFilter: ColorFilter.mode(
-          Colors.blue.withOpacity(0.5),
+          selectedColor ?? Colors.blue.withOpacity(0.5),
           BlendMode.srcATop,
         ),
         child: child,
