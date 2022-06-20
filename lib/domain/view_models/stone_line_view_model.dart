@@ -11,10 +11,12 @@ abstract class StoneLineViewModel extends ChangeNotifier {
 
   void flipStone(int index);
 
-  void onSelect(int index);
+  void onSelectForSwipe(int index);
 
-  List<int> getSelectedStonesIndexList();
+  void onSelectForChallenge(int index);
+
+  List<int> getSelectedStonesForSwipeIndexList();
+  bool isAnyStoneSeletecForChallenge();
 
   void switchStones();
-
 }

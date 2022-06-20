@@ -1,4 +1,4 @@
-import 'package:tellstones_recreate/domain/config_points_view_model.dart';
+import 'package:tellstones_recreate/domain/view_models/config_points_view_model.dart';
 
 class ConfigPointsViewModelImpl implements ConfigPointsViewModel {
   @override

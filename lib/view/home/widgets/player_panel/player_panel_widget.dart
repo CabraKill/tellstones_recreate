@@ -32,6 +32,8 @@ class PlayerPanel extends StatefulWidget {
 class _PlayerPanelState extends State<PlayerPanel> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final widgetWidth = screenWidth * 0.05;
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       switchInCurve: Curves.ease,
@@ -45,14 +47,14 @@ class _PlayerPanelState extends State<PlayerPanel> {
               duration: const Duration(milliseconds: 300),
               curve: Curves.ease,
               width: widget.isReadyToSwitch ?? false
-                  ? MediaQuery.of(context).size.width * 0.1
-                  : MediaQuery.of(context).size.width * 0.3,
-              height: MediaQuery.of(context).size.width * 0.1,
+                  ? widgetWidth
+                  : screenWidth * 0.3,
+              height: widgetWidth,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(60),
                 border: Border.all(
                   color: AppColors.lightBlue,
-                  width: 7,
+                  width: 5,
                 ),
                 color: Colors.black87,
               ),
@@ -66,8 +68,8 @@ class _PlayerPanelState extends State<PlayerPanel> {
                   firstChild: FittedBox(
                     fit: BoxFit.none,
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      height: MediaQuery.of(context).size.width * 0.1,
+                      width: screenWidth * 0.3,
+                      height: widgetWidth,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: List.from(ActionsType.values)

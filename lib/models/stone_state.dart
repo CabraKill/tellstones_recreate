@@ -3,24 +3,29 @@ import 'package:tellstones_recreate/models/stones_enum.dart';
 class StoneState {
   final StoneType type;
   final bool turned;
-  final bool selected;
+  final bool isSelectedForSwipe;
+  final bool isSelectedForChallenge;
 
   StoneState({
     required this.type,
     required this.turned,
-    this.selected = false,
+    this.isSelectedForSwipe = false,
+    this.isSelectedForChallenge = false,
   });
 
   StoneState copyWith({
     final StoneType? type,
     final bool? turned,
     final int? index,
-    final bool? selected,
+    final bool? isSelectedForSwipe,
+    final bool? isSelectedForChallenge,
   }) {
     return StoneState(
       type: type ?? this.type,
       turned: turned ?? this.turned,
-      selected: selected ?? this.selected,
+      isSelectedForSwipe: isSelectedForSwipe ?? this.isSelectedForSwipe,
+      isSelectedForChallenge:
+          isSelectedForChallenge ?? this.isSelectedForChallenge,
     );
   }
 }

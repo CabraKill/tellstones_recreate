@@ -53,16 +53,22 @@ class _StoneTargetListState extends State<StoneTargetList> {
                     onLongPress: () => widget.onLongTap?.call(index),
                     child: Flip(
                       key: ValueKey(widget.stones[index]?.type.name),
-                        turned: widget.stones[index]!.turned,
-                        child: AnimatedSelect(
-                          key: ValueKey(
-                              "stoneTargetListKey_${index}_${widget.stones[index]!.turned}"),
-                          isSelected: widget.stones[index]!.selected,
-                          child: Stone(
-                            type: widget.stones[index]!.type,
-                            turned: widget.stones[index]!.turned,
-                          ),
-                        )),
+                      turned: widget.stones[index]!.turned,
+                      child: AnimatedSelect(
+                        key: ValueKey(
+                            "stoneTargetListKey_${index}_${widget.stones[index]!.turned}"),
+                        isSelected: widget.stones[index]!.isSelectedForSwipe ||
+                            widget.stones[index]!.isSelectedForChallenge,
+                        selectedColor:
+                            widget.stones[index]!.isSelectedForChallenge
+                                ? Colors.red.withOpacity(0.5)
+                                : null,
+                        child: Stone(
+                          type: widget.stones[index]!.type,
+                          turned: widget.stones[index]!.turned,
+                        ),
+                      ),
+                    ),
                   ),
           ),
         ),

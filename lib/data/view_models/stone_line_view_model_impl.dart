@@ -1,7 +1,6 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:tellstones_recreate/domain/stone_line_view_model.dart';
+import 'package:tellstones_recreate/domain/view_models/stone_line_view_model.dart';
 import 'package:tellstones_recreate/models/stone_state.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 
@@ -57,18 +56,33 @@ class StoneLineViewModelImpl extends ChangeNotifier
   }
 
   @override
-  void onSelect(int index) {
+  void onSelectForSwipe(int index) {
     _stoneLine[index] = _stoneLine[index]?.copyWith(
-      selected: !_stoneLine[index]!.selected,
+      isSelectedForSwipe: !_stoneLine[index]!.isSelectedForSwipe,
     );
     notifyListeners();
   }
 
   @override
-  List<int> getSelectedStonesIndexList() {
+  void onSelectForChallenge(int index) {
+    var newStoneState = _stoneLine[index]?.copyWith(
+      isSelectedForChallenge: !_stoneLine[index]!.isSelectedForChallenge,
+    );
+    for (int clearStoneIndex = 0;
+        clearStoneIndex < _stoneLine.length;
+        clearStoneIndex++) {
+      _stoneLine[clearStoneIndex] =
+          _stoneLine[clearStoneIndex]?.copyWith(isSelectedForChallenge: false);
+    }
+    _stoneLine[index] = newStoneState;
+    notifyListeners();
+  }
+
+  @override
+  List<int> getSelectedStonesForSwipeIndexList() {
     List<int> selectedStonesIndexList = [];
     for (var i = 0; i < _stoneLine.length; i++) {
-      if (_stoneLine[i]?.selected ?? false) {
+      if (_stoneLine[i]?.isSelectedForSwipe ?? false) {
         selectedStonesIndexList.add(i);
       }
     }
@@ -77,15 +91,22 @@ class StoneLineViewModelImpl extends ChangeNotifier
 
   @override
   void switchStones() {
-    final firstStoneIndex = getSelectedStonesIndexList()[0];
-    final secondStoneIndex = getSelectedStonesIndexList()[1];
+    final firstStoneIndex = getSelectedStonesForSwipeIndexList()[0];
+    final secondStoneIndex = getSelectedStonesForSwipeIndexList()[1];
     final firstStone = _stoneLine[firstStoneIndex];
     final secondStone = _stoneLine[secondStoneIndex];
 
     _stoneLine[firstStoneIndex] =
-        secondStone?.copyWith(selected: false);
+        secondStone?.copyWith(isSelectedForSwipe: false);
     _stoneLine[secondStoneIndex] =
-        firstStone?.copyWith(selected: false);
+        firstStone?.copyWith(isSelectedForSwipe: false);
     notifyListeners();
+  }
+
+  @override
+  bool isAnyStoneSeletecForChallenge() {
+    return _stoneLine
+        .where((stone) => stone?.isSelectedForChallenge == true)
+        .isNotEmpty;
   }
 }

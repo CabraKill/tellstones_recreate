@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tellstones_recreate/domain/table_points_view_model.dart';
-
+import 'package:tellstones_recreate/domain/view_models/table_points_view_model.dart';
 class TablePointsViewModelImpl extends ChangeNotifier implements TablePointsViewModel {
   double _playerOnePoints = 0;
   double _playerTwoPoints = 0;

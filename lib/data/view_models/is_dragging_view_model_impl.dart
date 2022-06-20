@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tellstones_recreate/domain/is_dragging_view_model.dart';
+import 'package:tellstones_recreate/domain/view_models/is_dragging_view_model.dart';
 
 class IsDraggingViewModelImpl extends ChangeNotifier
     implements IsDraggingViewModel {

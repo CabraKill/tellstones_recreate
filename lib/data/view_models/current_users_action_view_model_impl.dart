@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tellstones_recreate/domain/current_users_action_view_model.dart';
+import 'package:tellstones_recreate/domain/view_models/current_users_action_view_model.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
 
 class CurrentUsersActionViewModelImpl extends ChangeNotifier
