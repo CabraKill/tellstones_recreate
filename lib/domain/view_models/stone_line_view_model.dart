@@ -17,6 +17,7 @@ abstract class StoneLineViewModel extends ChangeNotifier {
 
   List<int> getSelectedStonesForSwipeIndexList();
   bool isAnyStoneSeletecForChallenge();
+  StoneType? getCurrentStoneTypeForChallenge();
 
   void switchStones();
 }

@@ -2,6 +2,7 @@ import 'package:tellstones_recreate/domain/view_models/current_users_action_view
 import 'package:tellstones_recreate/domain/view_models/home_view_model.dart';
 import 'package:tellstones_recreate/domain/view_models/stone_line_view_model.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
+import 'package:tellstones_recreate/models/stones_enum.dart';
 
 class HomeViewModelImpl implements HomeViewModel {
   final StoneLineViewModel _stoneLineViewModel;
@@ -66,5 +67,17 @@ class HomeViewModelImpl implements HomeViewModel {
   void onSwitch() {
     _stoneLineViewModel.switchStones();
     _currentUsersActionViewModel.switchUser();
+  }
+
+  @override
+  void onChallengeTap(StoneType type) {
+      //TODO: clear selected stones and flip the selectec for challenge if upside down
+    final currentStoneTypeForChallenge = _stoneLineViewModel.getCurrentStoneTypeForChallenge();
+    if(currentStoneTypeForChallenge == type){
+      //TODO: call view model for users points and add for the current user
+
+    } else {
+      //TODO: call view model for users points and give for the other player
+    }
   }
 }

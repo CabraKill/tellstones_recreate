@@ -105,8 +105,19 @@ class StoneLineViewModelImpl extends ChangeNotifier
 
   @override
   bool isAnyStoneSeletecForChallenge() {
-    return _stoneLine
-        .where((stone) => stone?.isSelectedForChallenge == true)
-        .isNotEmpty;
+    return _getStoneListForChallenge().isNotEmpty;
+  }
+
+  @override
+  StoneType? getCurrentStoneTypeForChallenge() {
+    try {
+      return _getStoneListForChallenge().first?.type;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Iterable<StoneState?> _getStoneListForChallenge() {
+    return _stoneLine.where((stone) => stone?.isSelectedForChallenge == true);
   }
 }

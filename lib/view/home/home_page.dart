@@ -127,9 +127,19 @@ class HomePage extends StatelessWidget {
                       return AnimateGuessPool(
                         child: currentUsersActionViewModel.getCurrentAction() ==
                                 ActionsType.challenge
-                            ? GuessPool(
-                                onTap: (type) {},
-                              )
+                            ? Consumer<StoneLineViewModel>(
+                                builder: (context, stoneLineViewModel, child) {
+                                return GuessPool(
+                                  onTap: (type) {
+                                    if (stoneLineViewModel
+                                        .isAnyStoneSeletecForChallenge()) {
+                                      Provider.of<HomeViewModel>(context,
+                                              listen: false)
+                                          .onChallengeTap(type);
+                                    }
+                                  },
+                                );
+                              })
                             : Consumer<StonePoolViewModel>(
                                 builder: ((context, stonePoolViewModel,
                                         child) =>
