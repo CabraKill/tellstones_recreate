@@ -16,7 +16,7 @@ class StoneState {
   StoneState copyWith({
     final StoneType? type,
     final bool? turned,
-    final int? index,
+    // TODO: check if necessary: final int? index,
     final bool? isSelectedForSwipe,
     final bool? isSelectedForChallenge,
   }) {

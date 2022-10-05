@@ -18,7 +18,7 @@ class Stone extends StatelessWidget {
     return SizedBox(
       width: _stoneHeigth,
       height: _stoneHeigth,
-      child: turned == false
+      child: !turned
           ? Image.asset(type.getAssetFileName)
           : Image.asset(StoneConstants.backAsset),
     );

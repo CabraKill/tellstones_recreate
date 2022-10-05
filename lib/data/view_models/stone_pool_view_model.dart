@@ -9,7 +9,7 @@ class StonePoolViewModelImpl extends ChangeNotifier
   final List<StoneType> _stonePool;
 
   StonePoolViewModelImpl({List<StoneType>? stonePool})
-      : _stonePool = stonePool ?? List.from(StoneType.values);
+      : _stonePool = stonePool ?? List.of(StoneType.values);
 
   @override
   UnmodifiableListView<StoneType> getStonePool() =>

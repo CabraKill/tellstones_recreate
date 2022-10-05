@@ -9,5 +9,5 @@ abstract class TablePointsViewModel extends ChangeNotifier {
 
   void addPlayerTwoPoints(double points);
 
-  void resetPoints() {}
+  void resetPoints();
 }

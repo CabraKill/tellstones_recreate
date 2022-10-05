@@ -3,7 +3,7 @@ class CalculateBetweenAlignUtil {
     if (currentValue == 1) {
       return 0;
     }
-    final percent = (1 / (maxValue - 1)) * (currentValue - 1);
-    return percent;
+
+    return (1 / (maxValue - 1)) * (currentValue - 1);
   }
 }

@@ -6,10 +6,12 @@ import 'package:tellstones_recreate/models/stones_enum.dart';
 
 class StoneLineViewModelImpl extends ChangeNotifier
     implements StoneLineViewModel {
+  static const int _stoneLength = 7;
+  static const int _middleIndexOfStoneList = 3;
   final List<StoneState?> _stoneLine;
 
   StoneLineViewModelImpl({List<StoneState>? stoneLine})
-      : _stoneLine = stoneLine ?? List.generate(7, (index) => null);
+      : _stoneLine = stoneLine ?? List.generate(_stoneLength, (index) => null);
 
   @override
   UnmodifiableListView<StoneState?> getStoneLine() =>
@@ -27,46 +29,38 @@ class StoneLineViewModelImpl extends ChangeNotifier
   @override
   bool canPutStone(int index) {
     if (_stoneLine[3] == null) {
-      if (index == 3) {
-        return true;
-      } else {
-        return false;
-      }
+      return index == _middleIndexOfStoneList ? true : false;
     }
-    if (index < 3) {
-      if (_stoneLine[index + 1] != null) {
-        return true;
-      } else {
-        return false;
-      }
+    if (index < _middleIndexOfStoneList) {
+      return _stoneLine[index + 1] != null ? true : false;
     }
-    if (_stoneLine[index - 1] != null) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return _stoneLine[index - 1] != null ? true : false;
   }
 
   @override
   void flipStone(int index) {
-    _stoneLine[index] = _stoneLine[index]?.copyWith(
-      turned: !_stoneLine[index]!.turned,
+    final stoneInLine = _stoneLine[index];
+    _stoneLine[index] = stoneInLine?.copyWith(
+      turned: !stoneInLine.turned,
     );
     notifyListeners();
   }
 
   @override
   void onSelectForSwipe(int index) {
-    _stoneLine[index] = _stoneLine[index]?.copyWith(
-      isSelectedForSwipe: !_stoneLine[index]!.isSelectedForSwipe,
+    final stoneInLine = _stoneLine[index];
+    _stoneLine[index] = stoneInLine?.copyWith(
+      isSelectedForSwipe: !stoneInLine.isSelectedForSwipe,
     );
     notifyListeners();
   }
 
   @override
   void onSelectForChallenge(int index) {
-    var newStoneState = _stoneLine[index]?.copyWith(
-      isSelectedForChallenge: !_stoneLine[index]!.isSelectedForChallenge,
+    final stoneInLine = _stoneLine[index];
+    var newStoneState = stoneInLine?.copyWith(
+      isSelectedForChallenge: !stoneInLine.isSelectedForChallenge,
     );
     for (int clearStoneIndex = 0;
         clearStoneIndex < _stoneLine.length;
@@ -86,13 +80,16 @@ class StoneLineViewModelImpl extends ChangeNotifier
         selectedStonesIndexList.add(i);
       }
     }
+
     return selectedStonesIndexList;
   }
 
   @override
   void switchStones() {
-    final firstStoneIndex = getSelectedStonesForSwipeIndexList()[0];
-    final secondStoneIndex = getSelectedStonesForSwipeIndexList()[1];
+    final selectedStonesForSwipeIndexList =
+        getSelectedStonesForSwipeIndexList();
+    final firstStoneIndex = selectedStonesForSwipeIndexList.first;
+    final secondStoneIndex = selectedStonesForSwipeIndexList[1];
     final firstStone = _stoneLine[firstStoneIndex];
     final secondStone = _stoneLine[secondStoneIndex];
 

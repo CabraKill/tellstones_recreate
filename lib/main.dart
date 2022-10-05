@@ -20,15 +20,20 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<StonePoolViewModel>(
-          create: (context) => StonePoolViewModelImpl()),
+        create: (context) => StonePoolViewModelImpl(),
+      ),
       ChangeNotifierProvider<StoneLineViewModel>(
-          create: (context) => StoneLineViewModelImpl()),
+        create: (context) => StoneLineViewModelImpl(),
+      ),
       ChangeNotifierProvider<TablePointsViewModel>(
-          create: (context) => TablePointsViewModelImpl()),
+        create: (context) => TablePointsViewModelImpl(),
+      ),
       ChangeNotifierProvider<IsDraggingViewModel>(
-          create: (context) => IsDraggingViewModelImpl()),
+        create: (context) => IsDraggingViewModelImpl(),
+      ),
       ChangeNotifierProvider<CurrentUsersActionViewModel>(
-          create: (context) => CurrentUsersActionViewModelImpl()),
+        create: (context) => CurrentUsersActionViewModelImpl(),
+      ),
       Provider<ConfigPointsViewModel>(
         create: (context) => ConfigPointsViewModelImpl(),
       ),
@@ -39,7 +44,7 @@ void main() {
           stoneLineViewModel:
               Provider.of<StoneLineViewModel>(context, listen: false),
         ),
-      )
+      ),
     ],
     child: MaterialApp(
       initialRoute: '/',

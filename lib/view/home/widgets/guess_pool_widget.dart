@@ -11,33 +11,41 @@ class GuessPool extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const double _borderWidth = 3;
+  static const double _colorOpacityOffset = 0.5;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: StoneType.values
           .map((type) => PeriodicAnimatedBuilder(
-              duration: const Duration(milliseconds: 700),
-              builder: (animation) {
-                final curvedAnimation = Curves.ease.transform(animation);
-                return Container(
+                duration: const Duration(milliseconds: 700),
+                builder: (animation) {
+                  final curvedAnimation = Curves.ease.transform(animation);
+
+                  return Container(
                     decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 3,
-                          color: Colors.grey.withOpacity(curvedAnimation),
-                        )),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        width: _borderWidth,
+                        color: Colors.grey.withOpacity(curvedAnimation),
+                      ),
+                    ),
                     padding: const EdgeInsets.all(5),
                     child: ColorFiltered(
                       colorFilter: ColorFilter.mode(
-                        Colors.grey.withOpacity(0.5 * curvedAnimation),
+                        Colors.grey
+                            .withOpacity(curvedAnimation * _colorOpacityOffset),
                         BlendMode.srcATop,
                       ),
                       child: Stone(
                         type: type,
                       ),
-                    ));
-              }))
+                    ),
+                  );
+                },
+              ))
           .toList(),
     );
   }

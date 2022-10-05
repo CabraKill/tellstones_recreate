@@ -8,11 +8,14 @@ class HomeViewModelImpl implements HomeViewModel {
   final StoneLineViewModel _stoneLineViewModel;
   final CurrentUsersActionViewModel _currentUsersActionViewModel;
 
+  static const _necessaryAmountOfSelectedStones = 2;
+
   HomeViewModelImpl({
     required StoneLineViewModel stoneLineViewModel,
     required CurrentUsersActionViewModel currentUsersActionViewModel,
   })  : _stoneLineViewModel = stoneLineViewModel,
         _currentUsersActionViewModel = currentUsersActionViewModel;
+
   @override
   void onStoneTap(int index) {
     var currentAction = _currentUsersActionViewModel.getCurrentAction();
@@ -55,7 +58,8 @@ class HomeViewModelImpl implements HomeViewModel {
 
   @override
   bool readyToSwith(ActionsType? currentAction, int selectedStonesLength) {
-    return currentAction == ActionsType.swipe && selectedStonesLength == 2;
+    return currentAction == ActionsType.swipe &&
+        selectedStonesLength == _necessaryAmountOfSelectedStones;
   }
 
   @override
@@ -71,13 +75,14 @@ class HomeViewModelImpl implements HomeViewModel {
 
   @override
   void onChallengeTap(StoneType type) {
-      //TODO: clear selected stones and flip the selectec for challenge if upside down
-    final currentStoneTypeForChallenge = _stoneLineViewModel.getCurrentStoneTypeForChallenge();
-    if(currentStoneTypeForChallenge == type){
-      //TODO: call view model for users points and add for the current user
+    // TODO: clear selected stones and flip the selectec for challenge if upside down.
+    final currentStoneTypeForChallenge =
+        _stoneLineViewModel.getCurrentStoneTypeForChallenge();
+    if (currentStoneTypeForChallenge == type) {
+      // TODO: call view model for users points and add for the current user.
 
     } else {
-      //TODO: call view model for users points and give for the other player
+      // TODO: call view model for users points and give for the other player.
     }
   }
 }

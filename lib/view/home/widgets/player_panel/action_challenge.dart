@@ -6,23 +6,27 @@ class ActionChallenge extends StatelessWidget {
   final double size;
   const ActionChallenge({
     required this.type,
-    this.size = 40,
+    this.size = _defaultSize,
     Key? key,
   }) : super(key: key);
 
+  static const _defaultSize = 40.0;
+
   @override
   Widget build(BuildContext context) {
+    final safeType = type;
+
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      child: type != null
-          ? Icon(
-              type!.icon,
+      duration: const Duration(milliseconds: 200),
+      child: safeType == null
+          ? SizedBox.square(
+              dimension: size,
+            )
+          : Icon(
+              safeType.icon,
               color: Colors.blue,
               size: size,
               key: ValueKey('actionChanlengeKey${type.toString()}'),
-            )
-          : SizedBox.square(
-              dimension: size,
             ),
       transitionBuilder: (child, animation) => ScaleTransition(
         scale: animation,

@@ -30,10 +30,18 @@ class PlayerPanel extends StatefulWidget {
 }
 
 class _PlayerPanelState extends State<PlayerPanel> {
+  static const double _borderRadius = 60;
+  static const double _borderWidth = 5;
+  static const _widthfactor = 0.3;
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final widgetWidth = screenWidth * 0.05;
+
+    final width =
+        widget.isReadyToSwitch ?? false ? widgetWidth : screenWidth * 0.3;
+
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       switchInCurve: Curves.ease,
@@ -46,48 +54,48 @@ class _PlayerPanelState extends State<PlayerPanel> {
           ? AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               curve: Curves.ease,
-              width: widget.isReadyToSwitch ?? false
-                  ? widgetWidth
-                  : screenWidth * 0.3,
+              width: width,
               height: widgetWidth,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(60),
+                borderRadius: BorderRadius.circular(_borderRadius),
                 border: Border.all(
                   color: AppColors.lightBlue,
-                  width: 5,
+                  width: _borderWidth,
                 ),
                 color: Colors.black87,
               ),
               alignment: Alignment.center,
               child: AnimatedCrossFade(
-                  crossFadeState: widget.isReadyToSwitch ?? false
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  alignment: Alignment.center,
-                  duration: const Duration(milliseconds: 300),
-                  firstChild: FittedBox(
-                    fit: BoxFit.none,
-                    child: SizedBox(
-                      width: screenWidth * 0.3,
-                      height: widgetWidth,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: List.from(ActionsType.values)
-                              .map((action) => ActionButton(
-                                    actionType: action,
-                                    activated: widget.currentAction == action,
-                                    onTap: () => widget.onTap?.call(action),
-                                  ))
-                              .toList()),
+                crossFadeState: widget.isReadyToSwitch ?? false
+                    ? CrossFadeState.showSecond
+                    : CrossFadeState.showFirst,
+                alignment: Alignment.center,
+                duration: const Duration(milliseconds: 300),
+                firstChild: FittedBox(
+                  fit: BoxFit.none,
+                  child: SizedBox(
+                    width: screenWidth * _widthfactor,
+                    height: widgetWidth,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: List.of(ActionsType.values)
+                          .map((action) => ActionButton(
+                                actionType: action,
+                                activated: widget.currentAction == action,
+                                onTap: () => widget.onTap?.call(action),
+                              ))
+                          .toList(),
                     ),
                   ),
-                  secondChild: InkWell(
-                    onTap: widget.onConfirmSwitch,
-                    child: const Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
-                  )),
+                ),
+                secondChild: InkWell(
+                  onTap: widget.onConfirmSwitch,
+                  child: const Icon(
+                    Icons.check,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             )
           : widget.onInvisible?.call(context) ?? const SizedBox.shrink(),
     );

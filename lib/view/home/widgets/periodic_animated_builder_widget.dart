@@ -35,9 +35,10 @@ class _PeriodicAnimatedBuilderState extends State<PeriodicAnimatedBuilder>
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-        animation: animationController,
-        builder: (context, child) {
-          return widget.builder(animationController.value);
-        });
+      animation: animationController,
+      builder: (context, child) {
+        return widget.builder(animationController.value);
+      },
+    );
   }
 }

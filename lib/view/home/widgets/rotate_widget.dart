@@ -19,6 +19,7 @@ class Flip extends StatelessWidget {
       switchOutCurve: Curves.easeIn.flipped,
       transitionBuilder: (child, animation) {
         final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
+
         return AnimatedBuilder(
           animation: rotateAnim,
           builder: (context, child) {
@@ -26,6 +27,7 @@ class Flip extends StatelessWidget {
                 !(child?.key.toString().endsWith(turned.toString()) ?? false);
             final value =
                 isUnder ? min(rotateAnim.value, pi / 2) : rotateAnim.value;
+
             return Transform(
               transform: Matrix4.rotationY(value),
               alignment: Alignment.center,
@@ -37,7 +39,7 @@ class Flip extends StatelessWidget {
       },
       child: child,
       layoutBuilder: (widget, list) => Stack(children: [
-        widget!,
+        widget ?? const SizedBox.shrink(),
         ...list,
       ]),
     );

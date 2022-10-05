@@ -19,6 +19,14 @@ class PointsPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var horizontalPadding = MediaQuery.of(context).size.width * 0.25;
+
+    final xAlignment = CalculateBetweenAlignUtil.calculateBetweenAlign(
+              maxPoints,
+              currentPoints,
+            ) *
+            2 -
+        1;
+
     return Transform.rotate(
       angle: rotate ? pi : 0,
       child: Padding(
@@ -35,18 +43,16 @@ class PointsPanel extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(
-                      maxPoints, (index) => const PointMark.outlined()),
+                    maxPoints,
+                    (index) => const PointMark.outlined(),
+                  ),
                 ),
               ),
               AnimatedAlign(
                 alignment: Alignment(
-                    CalculateBetweenAlignUtil.calculateBetweenAlign(
-                              maxPoints,
-                              currentPoints,
-                            ) *
-                            2 -
-                        1,
-                    0),
+                  xAlignment,
+                  0,
+                ),
                 duration: const Duration(milliseconds: 300),
                 child: const PointMark(),
               ),

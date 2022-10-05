@@ -9,6 +9,7 @@ class SelectedStoneA extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  static const _stoneLengthOnTable = 7;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,24 +21,27 @@ class SelectedStoneA extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
-                7,
-                (index) => Expanded(
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: selectecStonesIndexList.contains(index)
-                              ? const Icon(Icons.keyboard_arrow_down_sharp)
-                              : const SizedBox.shrink()),
-                    )),
+              _stoneLengthOnTable,
+              (index) => Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: selectecStonesIndexList.contains(index)
+                      ? const Icon(Icons.keyboard_arrow_down_sharp)
+                      : const SizedBox.shrink(),
+                ),
+              ),
+            ),
           ),
         ),
         Expanded(child: child),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(
-              7,
-              (index) => selectecStonesIndexList.contains(index)
-                  ? const Icon(Icons.arrow_downward)
-                  : const SizedBox.shrink()),
+            _stoneLengthOnTable,
+            (index) => selectecStonesIndexList.contains(index)
+                ? const Icon(Icons.arrow_downward)
+                : const SizedBox.shrink(),
+          ),
         ),
       ],
     );
