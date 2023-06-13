@@ -43,6 +43,8 @@ void main() {
               Provider.of<CurrentUsersActionViewModel>(context, listen: false),
           stoneLineViewModel:
               Provider.of<StoneLineViewModel>(context, listen: false),
+          tablePointsViewModel:
+              Provider.of<TablePointsViewModel>(context, listen: false),
         ),
       ),
     ],

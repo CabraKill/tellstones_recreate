@@ -19,32 +19,35 @@ class GuessPool extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: StoneType.values
-          .map((type) => PeriodicAnimatedBuilder(
-                duration: const Duration(milliseconds: 700),
-                builder: (animation) {
-                  final curvedAnimation = Curves.ease.transform(animation);
+          .map((type) => InkWell(
+                onTap: () => onTap(type),
+                child: PeriodicAnimatedBuilder(
+                  duration: const Duration(milliseconds: 700),
+                  builder: (animation) {
+                    final curvedAnimation = Curves.ease.transform(animation);
 
-                  return Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        width: _borderWidth,
-                        color: Colors.grey.withOpacity(curvedAnimation),
+                    return Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: _borderWidth,
+                          color: Colors.grey.withOpacity(curvedAnimation),
+                        ),
                       ),
-                    ),
-                    padding: const EdgeInsets.all(5),
-                    child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        Colors.grey
-                            .withOpacity(curvedAnimation * _colorOpacityOffset),
-                        BlendMode.srcATop,
+                      padding: const EdgeInsets.all(5),
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.grey.withOpacity(
+                              curvedAnimation * _colorOpacityOffset),
+                          BlendMode.srcATop,
+                        ),
+                        child: Stone(
+                          type: type,
+                        ),
                       ),
-                      child: Stone(
-                        type: type,
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ))
           .toList(),
     );

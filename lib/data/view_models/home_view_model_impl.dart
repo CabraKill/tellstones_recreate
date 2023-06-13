@@ -1,20 +1,24 @@
 import 'package:tellstones_recreate/domain/view_models/current_users_action_view_model.dart';
 import 'package:tellstones_recreate/domain/view_models/home_view_model.dart';
 import 'package:tellstones_recreate/domain/view_models/stone_line_view_model.dart';
+import 'package:tellstones_recreate/domain/view_models/table_points_view_model.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
 import 'package:tellstones_recreate/models/stones_enum.dart';
 
 class HomeViewModelImpl implements HomeViewModel {
   final StoneLineViewModel _stoneLineViewModel;
   final CurrentUsersActionViewModel _currentUsersActionViewModel;
+  final TablePointsViewModel _tablePointsViewModel;
 
   static const _necessaryAmountOfSelectedStones = 2;
 
   HomeViewModelImpl({
     required StoneLineViewModel stoneLineViewModel,
     required CurrentUsersActionViewModel currentUsersActionViewModel,
+    required TablePointsViewModel tablePointsViewModel,
   })  : _stoneLineViewModel = stoneLineViewModel,
-        _currentUsersActionViewModel = currentUsersActionViewModel;
+        _currentUsersActionViewModel = currentUsersActionViewModel,
+        _tablePointsViewModel = tablePointsViewModel;
 
   @override
   void onStoneTap(int index) {
@@ -79,10 +83,21 @@ class HomeViewModelImpl implements HomeViewModel {
     final currentStoneTypeForChallenge =
         _stoneLineViewModel.getCurrentStoneTypeForChallenge();
     if (currentStoneTypeForChallenge == type) {
-      // TODO: call view model for users points and add for the current user.
-
+      if (_currentUsersActionViewModel.getIsUser1Turn()) {
+        _tablePointsViewModel.addPlayerTwoPoints(1);
+      } else {
+        _tablePointsViewModel.addPlayerOnePoints(1);
+      }
     } else {
-      // TODO: call view model for users points and give for the other player.
+      if (_currentUsersActionViewModel.getIsUser1Turn()) {
+        _tablePointsViewModel.addPlayerOnePoints(1);
+      } else {
+        _tablePointsViewModel.addPlayerTwoPoints(1);
+      }
     }
+    _currentUsersActionViewModel.switchUser();
+
+    //TODO analyse the win
+    //TODO remove red color
   }
 }

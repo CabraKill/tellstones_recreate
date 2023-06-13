@@ -8,6 +8,7 @@ import 'package:tellstones_recreate/domain/view_models/home_view_model.dart';
 import 'package:tellstones_recreate/domain/view_models/is_dragging_view_model.dart';
 import 'package:tellstones_recreate/domain/view_models/stone_line_view_model.dart';
 import 'package:tellstones_recreate/domain/view_models/stone_pool_view_model.dart';
+import 'package:tellstones_recreate/domain/view_models/table_points_view_model.dart';
 import 'package:tellstones_recreate/models/actions_enum.dart';
 import 'package:tellstones_recreate/view/home/widgets/animate_guess_pool_widget.dart';
 import 'package:tellstones_recreate/view/home/widgets/guess_pool_widget.dart';
@@ -205,19 +206,26 @@ class HomePage extends StatelessWidget {
                   alignment: Alignment.topCenter,
                   child: Transform.rotate(
                     angle: pi,
-                    child: const PointsPanel(
-                      // TODO: call new view model here.
-                      currentPoints: 3,
-                      maxPoints: 3,
+                    child:  Consumer<TablePointsViewModel>(
+                      builder: (context, tablePointsViewModel, child) {
+                        return PointsPanel(
+                          currentPoints: tablePointsViewModel.getPlayerTwoPoints().toInt(),
+                          maxPoints: 3,
+                        );
+                      },
                     ),
                   ),
                 ),
-                const Align(
+                 Align(
                   alignment: Alignment.bottomCenter,
                   // TODO: call new view model here.
-                  child: PointsPanel(
-                    currentPoints: 2,
-                    maxPoints: 3,
+                  child: Consumer<TablePointsViewModel>(
+                    builder: (context, tablePointsViewModel, child) {
+                      return PointsPanel(
+                        currentPoints: tablePointsViewModel.getPlayerOnePoints().toInt(),
+                        maxPoints: 3,
+                      );
+                    },
                   ),
                 ),
               ],
